@@ -1,7 +1,7 @@
 from random import randint
-import sqlite3
+from sqlite3 import connect
 
-conn = sqlite3.connect('card.s3db')
+conn = connect('card.s3db')
 cur = conn.cursor()
 cur.execute('''CREATE TABLE IF NOT EXISTS card (
     id INTEGER AUTO_INCREMENT,
@@ -16,7 +16,7 @@ def random_number():
     result = '400000'
     total = 0
 
-    for x in range(0, 9):
+    for x in range(9):
         result += str(randint(0, 9))
     for i, value in enumerate(result, 1):
         value = int(value)
@@ -26,7 +26,7 @@ def random_number():
             value = value - 9
         total += value
 
-    for x in range(0, 10):
+    for x in range(10):
         if (total + x) % 10 == 0:
             result += str(x)
             break
@@ -50,7 +50,7 @@ def check_luhn(to_test):
                 value = value - 9
             total += value
 
-    for x in range(0, 10):
+    for x in range(10):
         if (total + x) % 10 == 0:
             check = x
             break
@@ -63,7 +63,7 @@ def check_luhn(to_test):
 
 def random_pin():
     r_pin = ''
-    for x in range(0, 4):
+    for x in range(4):
         r_pin = r_pin + str(randint(0, 9))
     return r_pin
 
